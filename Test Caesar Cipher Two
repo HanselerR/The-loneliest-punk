@@ -1,0 +1,71 @@
+import edu.duke.*;
+import java.io.*;
+
+public class TestCaesarCipherTwo {
+
+public int maxIndex(int[] vals){  //is this off??
+    int maxDex = 0;
+    for (int k =0; k<vals.length; k++){
+        if (vals[k] > vals[maxDex]){
+            maxDex=k;
+       }        
+       }
+        return maxDex;
+            
+    }
+public int[] countLetters(String message){
+    String alph = "abcdefghijklmnopqrstuvwxyz";
+    int[] counts= new int[26];
+    for (int k=0; k<message.length();k++){//itterate over each character in the message
+        char ch = Character.toLowerCase(message.charAt(k)); //
+       //char ch = message.charAt(k);  //CHANGES MADE!!
+        int dex = alph.indexOf(ch);
+        if (dex!=-1){
+           counts[dex]+=1;
+        }
+        
+   }return counts;
+}
+public StringBuilder halfOfString(String message,int start){
+    StringBuilder newHalf = new StringBuilder();
+    int index = 0;
+    for (int k=start;k<message.length();k=k+2){
+        newHalf.append(message.charAt(k));
+        index++;
+        
+  }return newHalf;
+}
+public String breakCaesarCipher (String input){
+CaesarBreaker cb1 = new CaesarBreaker();
+cb1.decryptTwoKeys(input);
+String TwoKeysDecrypted = cb1.decryptTwoKeys(input);
+return (TwoKeysDecrypted);
+//ABCDEFGHIJKLMNOPQRSTUVWXYZ//
+  
+}
+
+
+public void simpleTest(){
+    FileResource fr = new FileResource(); //select a file 
+    String file = fr.asString(); //convert file to string
+    CaesarCipherTwo cc1= new CaesarCipherTwo (12,2);//create new instance with xy keys
+    //ENCRYPT A FILE WHICH WE HAVE A KEY FOR//
+    cc1.encrypt(file); //encrypt the file with xy keys 
+    String encrypted = cc1.encrypt(file); //print the results
+    System.out.println ("The encrypted string is: "+encrypted);
+    //DECRYPT A FILE WHICH WE HAVE THE KEY FOR////   
+    cc1.decrypt(file);
+    String decrypted = cc1.decrypt (encrypted);
+    System.out.println ("The decrypted string is: "+decrypted); 
+}
+public void breakerTest(){
+    //DECRYPT A KEY WE DON'T HAVE////
+    FileResource fr = new FileResource(); //select a file 
+    String file = fr.asString();
+    breakCaesarCipher (file);
+    String broken = breakCaesarCipher(file);
+    System.out.println ("The cracked cipheris: "+broken);
+    
+}
+ 
+}
